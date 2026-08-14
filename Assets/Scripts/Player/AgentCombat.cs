@@ -14,9 +14,13 @@ public class AgentCombat : MonoBehaviour
 
     private GameObject _currentProyectile;
 
+    [Header("---Components---")]
+    private AgentController _agentController;
+
     private void Awake()
     {
         _canAttack = true;
+        _agentController = GetComponent<AgentController>();
     }
 
     private void Update()
@@ -25,7 +29,7 @@ public class AgentCombat : MonoBehaviour
             Attack();
     }
 
-    private void Attack()
+    public void Attack()
     {
         if (_canAttack)
         {

@@ -1,3 +1,4 @@
+using Unity.MLAgents.Actuators;
 using UnityEngine;
 
 public class AgentMovement : MonoBehaviour
@@ -6,27 +7,31 @@ public class AgentMovement : MonoBehaviour
     private Rigidbody _rb;
 
     [Header("---Movement Settings---")]
-    [SerializeField] private float _speed = 10;
+    [SerializeField] private float _speed = 10f;
+    [SerializeField] private float _rotationSpeed = 10f;
 
+    [Header("---Components---")]
+    private AgentController _agentController;
 
-    private new void Awake()
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    public void Movement(ActionBuffers actions)
     {
-        Movement();
-
-    }
-
-    private void Movement()
-    {
-        float moveY = Input.GetAxisRaw("Horizontal");
-        float moveX = Input.GetAxisRaw("Vertical");
+        float moveY = actions.ContinuousActions[0];
+        float moveX = actions.ContinuousActions[1];
 
         Vector3 direction = new Vector3(-moveX, 0f, moveY);
 
         _rb.linearVelocity = direction * (_speed * 100f) * Time.deltaTime;
     }
-}
+
+    public void Rotate(ActionBuffers actions, Transform enemy)
+    {
+        float rotation = actions.ContinuousActions[2];
+
+        transform.Rotate(0f, rotation * (_rotationSpeed * 100f) * Time.deltaTime ,0f);
+    }
+} 
