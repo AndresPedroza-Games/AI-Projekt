@@ -1080,11 +1080,32 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 582069561}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &711572927 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5066758604417061514, guid: 605a8d1902e72f64dbf172f4c2dbe682, type: 3}
+  m_PrefabInstance: {fileID: 7232890763707699694}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &711572929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9076817030354892174, guid: 605a8d1902e72f64dbf172f4c2dbe682, type: 3}
   m_PrefabInstance: {fileID: 7232890763707699694}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &711572935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711572927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b0897b48d576c4f97f7bdfd599c22c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AgentController
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
 --- !u!1 &725026402
 GameObject:
   m_ObjectHideFlags: 0
@@ -2673,7 +2694,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5066758604417061514, guid: 605a8d1902e72f64dbf172f4c2dbe682, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 711572935}
   m_SourcePrefab: {fileID: 100100000, guid: 605a8d1902e72f64dbf172f4c2dbe682, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
