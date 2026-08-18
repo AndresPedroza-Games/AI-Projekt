@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class AgentHealth : MonoBehaviour, IDamageable
 {
     [Header("---Health Settings---")]
-    [SerializeField] private int _maxHealth = 10;
+    public int _maxHealth = 10;
     public int currentHealth;
 
     [Header("---UI Settings---")]
@@ -16,10 +16,12 @@ public class AgentHealth : MonoBehaviour, IDamageable
     [Header("---Components---")]
     private AgentController _agentController;
 
+    public event Action<float> OnDamageTaken;
+    public event Action OnDeath;
+
     private void Awake()
     {
-        currentHealth = _maxHealth;
-        UpdateUI();
+        ResetPlayer();
         _agentController = GetComponent<AgentController>();
     }
 
@@ -28,11 +30,9 @@ public class AgentHealth : MonoBehaviour, IDamageable
         currentHealth -= damage;
         Die();
         UpdateUI();
-        _agentController.AddReward(-0.1f);
+        OnDamageTaken?.Invoke(damage);
 
-        _agentController.enemy.GetComponent<AgentController>().AddReward(0.1f);
-
-        Debug.Log($"{gameObject.name}+{_agentController.GetCumulativeReward()}");
+        _agentController._cumulativeReward = _agentController.GetCumulativeReward();
     }
 
     public void Die()
@@ -40,11 +40,12 @@ public class AgentHealth : MonoBehaviour, IDamageable
         if (currentHealth <= 0)
         {
             ResetPlayer();
-            _agentController.AddReward(-1f);
+            OnDeath?.Invoke();
 
-            _agentController.enemy.GetComponent<AgentController>().AddReward(1f);
+            _agentController._cumulativeReward = _agentController.GetCumulativeReward();
+            _agentController._currentEpisode = _agentController.CompletedEpisodes;
 
-            Debug.Log($"{gameObject.name}+{_agentController.GetCumulativeReward()}");
+            Debug.Log("dead");
         }
     }
 
@@ -57,11 +58,14 @@ public class AgentHealth : MonoBehaviour, IDamageable
     public void ResetPlayer()
     {
         currentHealth = _maxHealth;
+        UpdateUI();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent(out IDamageable isDamageable))
-            isDamageable.TakeDamage(1);
+        {
+            TakeDamage(1);
+        }
     }
 }

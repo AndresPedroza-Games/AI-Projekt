@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -11,12 +12,21 @@ public class AgentController : Agent
     private AgentCombat _agentCombat;
 
     public GameObject enemy;
+    public float _cumulativeReward;
+    public float _currentEpisode;
+
+    [Header("---UI Components---")]
+    public TMP_Text _cumulativeText;
+    public TMP_Text _episodeText;
 
     public override void Initialize()
     {
         _agentMovement = GetComponent<AgentMovement>();
         _agentHealth = GetComponent<AgentHealth>();
         _agentCombat = GetComponent<AgentCombat>();
+
+        _cumulativeReward = 0;
+        _currentEpisode = 0;
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -46,6 +56,8 @@ public class AgentController : Agent
     public override void OnEpisodeBegin()
     {
         _agentHealth.ResetPlayer();
+        _cumulativeText.text = $"Cumulative Reward: {_cumulativeReward}";
+        _episodeText.text = $"Current Episode: {_currentEpisode}";
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
