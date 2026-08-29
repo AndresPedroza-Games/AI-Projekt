@@ -1,4 +1,3 @@
-using Unity.MLAgents.Actuators;
 using UnityEngine;
 
 public class SoccerAgentMovement : MonoBehaviour
@@ -8,7 +7,14 @@ public class SoccerAgentMovement : MonoBehaviour
     private SoccerAgentRewards _agentRewards;
 
     [Header("---Movement Settings---")]
-    [SerializeField] private float _speed = 10f;
+    [SerializeField] private float _currentSpeed;
+    [SerializeField] private float _normalSpeed = 1f;
+    [SerializeField] private float _sprintSpeed = 3f;
+
+    public float maxStamina = 3f;
+    public float currentStamina;
+
+    public bool isSprinting;
 
     [Header("---Components---")]
     private SoccerAgentController _agentController;
@@ -22,16 +28,29 @@ public class SoccerAgentMovement : MonoBehaviour
         _agentController = GetComponent<SoccerAgentController>();
         _agentScore = GetComponent<SoccerAgentScore>();
         _agentRewards = GetComponent<SoccerAgentRewards>();
+
     }
 
-    public void Movement(ActionBuffers actions)
+    public void Init()
     {
-        float moveY = actions.ContinuousActions[0];
-        float moveX = actions.ContinuousActions[1];
+        currentStamina = maxStamina;
+    }
 
+    public void Movement(float moveX, float moveY) 
+    {
         Vector3 direction = new Vector3(moveX, 0f, moveY);
 
-        _rb.linearVelocity = direction * (_speed * 100f) * Time.deltaTime;
+        _rb.linearVelocity = direction * _currentSpeed;
+    }
+
+    public void Sprint(bool wantToSprint)
+    {
+        _currentSpeed = wantToSprint ? _sprintSpeed : _normalSpeed;     
+    }
+
+    public void ResetStamina()
+    {
+        currentStamina = maxStamina;
     }
 
     private void OnCollisionEnter(Collision collision)

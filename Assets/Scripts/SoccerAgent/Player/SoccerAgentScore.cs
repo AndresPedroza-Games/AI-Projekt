@@ -15,9 +15,6 @@ public class SoccerAgentScore : MonoBehaviour
     [SerializeField] private GameObject _teamGoal;
     [SerializeField] private GameObject _enemyGoal;
 
-    private float _notTouchingBallPenalty;
-    private float _notScoringPenalty;
-
     private void Awake()
     {
         _agentRewards = GetComponent<SoccerAgentRewards>();
@@ -46,12 +43,6 @@ public class SoccerAgentScore : MonoBehaviour
             OnWinGame();
         else if (_enemyScore >= 3)
             OnLoseGame();
-
-        _notTouchingBallPenalty += 0.05f * Time.deltaTime;
-        _agentController.AddReward(SoccerAgentRewards.notTouchBallReward * _notTouchingBallPenalty * Time.deltaTime);
-
-        _notScoringPenalty += 0.01f * Time.deltaTime;
-        _agentController.AddReward(SoccerAgentRewards.notScoreReward * _notScoringPenalty * Time.deltaTime);
     }
 
 
@@ -80,7 +71,6 @@ public class SoccerAgentScore : MonoBehaviour
         _agentRewards.OnGoal();
         _teamScore++;
         transform.position = _startPoint.position;
-        _notScoringPenalty = 0;
     }
 
     private void OnGoalReceived()
@@ -97,25 +87,5 @@ public class SoccerAgentScore : MonoBehaviour
             transform.position = _startPoint.position;
         }
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent<Ball>(out Ball ball))
-        {
-            _agentController.AddReward(SoccerAgentRewards.touchBallReward);
-            _agentRewards._cumulativeReward = _agentController.GetCumulativeReward();
-            _notTouchingBallPenalty = 0f;
-            _agentController.EndEpisode();
-        }
-    }
-
-    //private void OnCollisionStay(Collision collision)
-    //{
-    //    if (collision.gameObject.TryGetComponent<Ball>(out Ball ball))
-    //    {
-    //        _agentController.AddReward(0.01f * Time.fixedDeltaTime);
-    //        _agentRewards._cumulativeReward = _agentController.GetCumulativeReward();
-    //    }
-    //}
 
 }

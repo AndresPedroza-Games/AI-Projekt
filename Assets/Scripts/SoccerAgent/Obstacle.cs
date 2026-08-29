@@ -41,7 +41,7 @@ public class Obstacle : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player" || collision.gameObject.TryGetComponent<Ball>(out Ball _ball))
         {
             _agentController.AddReward(SoccerAgentRewards.touchObstacle);
         }

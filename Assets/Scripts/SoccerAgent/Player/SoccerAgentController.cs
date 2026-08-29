@@ -9,14 +9,14 @@ public class SoccerAgentController : Agent
     [Header("---Components---")]
     private SoccerAgentMovement _agentMovement;
     private SoccerAgentScore _agentScore;
+    public SoccerAgentActions _agentActions;
+    private SoccerAgentRewards _agentRewards;
 
     [Header("---Goals---")]
     [SerializeField] private GameObject _teamGoal;
+    [SerializeField] private GameObject _goalKeaper;
     public GameObject enemyGoal;
     public GameObject ball;
-
-    [Header("---Obstacle---")]
-    [SerializeField] private GameObject _obstacle;
 
     public Action onGoal;
     public Action onGoalReceived;
@@ -28,6 +28,10 @@ public class SoccerAgentController : Agent
     {
         _agentMovement = GetComponent<SoccerAgentMovement>();
         _agentScore = GetComponent<SoccerAgentScore>();
+        _agentActions = GetComponent<SoccerAgentActions>();
+        _agentRewards = GetComponent<SoccerAgentRewards>();
+
+        _agentMovement.Init();
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -43,20 +47,40 @@ public class SoccerAgentController : Agent
 
         Vector3 goalFromBall = enemyGoal.transform.position - ball.transform.position;
         sensor.AddObservation(goalFromBall);
-
-        Vector3 playerFromObstacle = transform.position - _obstacle.transform.position;
-        sensor.AddObservation(playerFromObstacle);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        _agentMovement.Movement(actions);
+
+        float moveY = actions.ContinuousActions[0];
+        float moveX = actions.ContinuousActions[1];
+
+        int sprint = actions.DiscreteActions[0];
+
+        bool wantsToSprint = sprint == 1;
+
+        _agentMovement.Sprint(wantsToSprint);
+
+        _agentMovement.Movement(moveX, moveY);
+
+        int shoot = actions.DiscreteActions[1];
+        float forceInput = actions.ContinuousActions[2];
+
+        bool wantsToShoot = shoot == 1;
+
+        _agentActions.Shoot(wantsToShoot, forceInput);
+
+        _agentRewards.CalculateRewards();
     }
 
     public override void OnEpisodeBegin()
     {
         _agentScore.Restart();
+
         previousDistanceToBall = Vector3.Distance(transform.position, ball.transform.position);
         previousDistanceToGoal = Vector3.Distance(ball.transform.position, enemyGoal.transform.position);
+
+        _agentMovement.ResetStamina();
+        _agentRewards.hasTouchedBall = false;
     }
 }
