@@ -1,51 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2603591025310315411
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2326376080281523846}
-  - component: {fileID: 950209478843363553}
-  m_Layer: 0
-  m_Name: ShootPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2326376080281523846
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2603591025310315411}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.064, y: 0.06, z: 1.111}
-  m_LocalScale: {x: 0.22389098, y: 0.22389098, z: 0.22389098}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6955891935146219641}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &950209478843363553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2603591025310315411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f81f0827f4cc0f41a27b00f3853aa46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AgentMovement
-  _speed: 10
-  _rotationSpeed: 10
 --- !u!1 &3681838168256163536
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +12,6 @@ GameObject:
   - component: {fileID: 2550723218414191442}
   - component: {fileID: 1173508176306176975}
   - component: {fileID: 665531939795391075}
-  - component: {fileID: 3685631959091458669}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -159,20 +112,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3685631959091458669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3681838168256163536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f81f0827f4cc0f41a27b00f3853aa46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AgentMovement
-  _speed: 10
-  _rotationSpeed: 10
 --- !u!1 &4780049723625173687
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +124,6 @@ GameObject:
   - component: {fileID: 8447177945618368460}
   - component: {fileID: 7654660664313623277}
   - component: {fileID: 5382204245195023875}
-  - component: {fileID: 1440618503569265837}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -286,20 +224,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1440618503569265837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4780049723625173687}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f81f0827f4cc0f41a27b00f3853aa46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AgentMovement
-  _speed: 10
-  _rotationSpeed: 10
 --- !u!1 &5890280044392939575
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +236,6 @@ GameObject:
   - component: {fileID: 6596650961088888039}
   - component: {fileID: 3868202757564749146}
   - component: {fileID: 7564377159370739470}
-  - component: {fileID: 1936407486208244189}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -413,20 +336,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1936407486208244189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5890280044392939575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f81f0827f4cc0f41a27b00f3853aa46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AgentMovement
-  _speed: 10
-  _rotationSpeed: 10
 --- !u!1 &8344667056518150175
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,7 +378,6 @@ Transform:
   - {fileID: 423696971006733253}
   - {fileID: 6333117736934183848}
   - {fileID: 7505288822404954495}
-  - {fileID: 2326376080281523846}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8113962272301260926
@@ -490,7 +398,6 @@ MonoBehaviour:
   MaxStep: 5000
   _agentActions: {fileID: 0}
   _teamGoal: {fileID: 0}
-  _goalKeaper: {fileID: 0}
   enemyGoal: {fileID: 0}
   ball: {fileID: 0}
   previousDistanceToBall: 0
@@ -541,8 +448,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2b4b5d0d9e2ab4a9a6f084170707a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoccerAgentUI
-  _teamScoreUI: {fileID: 0}
-  _enemyScoreUI: {fileID: 0}
+  _playerScoreUI: {fileID: 0}
+  _AIScoreUI: {fileID: 0}
   _cumulativeRewardUI: {fileID: 0}
   _currentEpisodeUI: {fileID: 0}
 --- !u!114 &8745803909807374062
@@ -576,7 +483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoccerAgentActions
   minShootForce: 5
   maxShootForce: 20
-  _shootPoint: {fileID: 2326376080281523846}
+  shootDistance: 1.5
   _ballRb: {fileID: 0}
 --- !u!114 &1045842441359788750
 MonoBehaviour:
@@ -591,7 +498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.ML-Agents::Unity.MLAgents.Policies.BehaviorParameters
   m_BrainParameters:
-    VectorObservationSize: 15
+    VectorObservationSize: 12
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 3
@@ -622,7 +529,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.ML-Agents::Unity.MLAgents.Sensors.RayPerceptionSensorComponent3D
   m_SensorName: RayPerceptionSensor
-  m_DetectableTags: []
+  m_DetectableTags:
+  - Ball
+  - TeamGoal
+  - EnemyGoal
+  - Wall
   m_RaysPerDirection: 2
   m_MaxRayDegrees: 70
   m_SphereCastRadius: 0.5

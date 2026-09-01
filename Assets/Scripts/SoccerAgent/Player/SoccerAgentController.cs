@@ -14,7 +14,6 @@ public class SoccerAgentController : Agent
 
     [Header("---Goals---")]
     [SerializeField] private GameObject _teamGoal;
-    [SerializeField] private GameObject _goalKeaper;
     public GameObject enemyGoal;
     public GameObject ball;
 
@@ -51,7 +50,6 @@ public class SoccerAgentController : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-
         float moveY = actions.ContinuousActions[0];
         float moveX = actions.ContinuousActions[1];
 

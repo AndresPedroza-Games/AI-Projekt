@@ -7,20 +7,20 @@ public class Ball : MonoBehaviour
     [SerializeField] private SoccerAgentController _agentController;
 
     [Header("---Goals---")]
-    [SerializeField] private GameObject _teamGoal;
-    [SerializeField] private GameObject _enemyGoal;
+    [SerializeField] private GameObject _AIGoal;
+    [SerializeField] private GameObject _playerGoal;
 
     [SerializeField] private Transform _startPoint;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == _teamGoal)
+        if (other.gameObject == _AIGoal)
         {
             _agentController.onGoalReceived.Invoke();
             RestartPos();
         }
 
-        if (other.gameObject == _enemyGoal)
+        if (other.gameObject == _playerGoal)
         {
             _agentController.onGoal.Invoke();
             RestartPos();

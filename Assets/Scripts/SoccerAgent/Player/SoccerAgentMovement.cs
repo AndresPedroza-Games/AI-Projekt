@@ -28,7 +28,6 @@ public class SoccerAgentMovement : MonoBehaviour
         _agentController = GetComponent<SoccerAgentController>();
         _agentScore = GetComponent<SoccerAgentScore>();
         _agentRewards = GetComponent<SoccerAgentRewards>();
-
     }
 
     public void Init()

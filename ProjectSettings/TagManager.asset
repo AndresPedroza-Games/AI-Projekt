@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Wall
+  - Ball
+  - TeamGoal
+  - EnemyGoal
   layers:
   - Default
   - TransparentFX

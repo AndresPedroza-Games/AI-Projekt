@@ -14,20 +14,20 @@ public class SoccerAgentRewards : MonoBehaviour
     public static float goalReward = 15f;
     public static float autoGoalReward = -10f;
     public static float winReward = 20f;
-    public static float loseReward = -13f;
+    public static float loseReward = -15f;
 
-    public static float distanceBallReward = 0.05f;
-    public static float distanceGoalReward = 0.1f;
-    public static float touchBallReward = 0.1f;
+    //public static float distanceBallReward = 0.05f;
+    //public static float distanceGoalReward = 0.1f;
+    //public static float touchBallReward = 0.1f;
 
-    //public static float distanceBallReward = 0.5f;
-    //public static float distanceGoalReward = 0.5f;
-    //public static float touchBallReward = 1f;
+    public static float distanceBallReward = 0.1f;
+    public static float distanceGoalReward = 0.3f;
+    public static float touchBallReward = 0.5f;
 
     public static float wallHitReward = -0.1f;
     public static float wallHitContinousReward = -0.001f;
 
-    public static float timePenalty = -0.001f;
+    public static float timePenalty = -0.0005f;
     public static float ballTouchWallReward = -0.1f;
 
     public static float touchObstacle = -0.2f;
@@ -51,7 +51,7 @@ public class SoccerAgentRewards : MonoBehaviour
     {
         float distanceToBall = Vector3.Distance(transform.position, _agentController.ball.transform.position);
 
-        bool isNearBall = distanceToBall <= 1.5f;
+        bool isNearBall = distanceToBall <= 1f;
 
         CheckDistanceToBall(!isNearBall);
         CheckDistanceToGoal(isNearBall);
@@ -108,7 +108,6 @@ public class SoccerAgentRewards : MonoBehaviour
         _cumulativeReward = _agentController.GetCumulativeReward();
         _agentController.EndEpisode();
         _currentEpisode = _agentController.CompletedEpisodes;
-
     }
 
     public void OnLoseGame()

@@ -9,8 +9,8 @@ public class SoccerAgentUI : MonoBehaviour
     private SoccerAgentRewards _agentRewards;
 
     [Header("---UI---")]
-    [SerializeField] private TMP_Text _teamScoreUI;
-    [SerializeField] private TMP_Text _enemyScoreUI;
+    [SerializeField] private TMP_Text _playerScoreUI;
+    [SerializeField] private TMP_Text _AIScoreUI;
     [SerializeField] private TMP_Text _cumulativeRewardUI;
     [SerializeField] private TMP_Text _currentEpisodeUI;
 
@@ -27,8 +27,8 @@ public class SoccerAgentUI : MonoBehaviour
 
     public void UpdateUI()
     {
-        _teamScoreUI.text = $"Team goals: {_agentScore._teamScore}";
-        _enemyScoreUI.text = $"Enemy goals: {_agentScore._enemyScore}";
+        _playerScoreUI.text = $"Player goals: {_agentScore._enemyScore}";
+        _AIScoreUI.text = $"AI goals: {_agentScore._teamScore}";
 
         _cumulativeRewardUI.text = $"Cumulative Reward: {_agentRewards._cumulativeReward}";
         _currentEpisodeUI.text = $"Episode: {_agentRewards._currentEpisode}";
