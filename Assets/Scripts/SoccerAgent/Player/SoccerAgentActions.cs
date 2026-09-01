@@ -27,9 +27,7 @@ public class SoccerAgentActions : MonoBehaviour
         if (!wantToShoot)
             return;
 
-        float distance = Vector3.Distance(transform.position, _ballRb.transform.position);
-
-        if (distance > shootDistance)
+        if (!_canShoot)
         {
             _agentController.AddReward(SoccerAgentRewards.shootAwayReward);
             return;
@@ -48,5 +46,17 @@ public class SoccerAgentActions : MonoBehaviour
         Vector3 direction = (_ballRb.transform.position - transform.position).normalized;
 
         _ballRb.AddForce(direction * force, ForceMode.Impulse);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject == _agentController.ball)
+            _canShoot = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject == _agentController.ball)
+            _canShoot = false;
     }
 }
