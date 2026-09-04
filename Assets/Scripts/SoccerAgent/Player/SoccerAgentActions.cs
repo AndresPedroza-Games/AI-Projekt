@@ -1,5 +1,3 @@
-using Unity.MLAgents.Actuators;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoccerAgentActions : MonoBehaviour
@@ -15,7 +13,10 @@ public class SoccerAgentActions : MonoBehaviour
     private SoccerAgentController _agentController;
 
     private bool _canShoot;
-    
+    private bool _canPush;
+
+    private float _pushCoolDown = 10f;
+    private float _pushTimer;
 
     private void Awake()
     {
@@ -27,9 +28,11 @@ public class SoccerAgentActions : MonoBehaviour
         if (!wantToShoot)
             return;
 
-        if (!_canShoot)
+        float distance = Vector3.Distance(transform.position,_ballRb.transform.position);
+
+        if (distance > shootDistance)
         {
-            _agentController.AddReward(SoccerAgentRewards.shootAwayReward);
+            _agentController.AddReward( SoccerAgentRewards.shootAwayReward);
             return;
         }
 
@@ -48,15 +51,4 @@ public class SoccerAgentActions : MonoBehaviour
         _ballRb.AddForce(direction * force, ForceMode.Impulse);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject == _agentController.ball)
-            _canShoot = true;
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject == _agentController.ball)
-            _canShoot = false;
-    }
 }

@@ -11,11 +11,6 @@ public class SoccerAgentRewards : MonoBehaviour
 
     [Header("---Rewards---")]
 
-    public static float goalReward = 15f;
-    public static float autoGoalReward = -10f;
-    public static float winReward = 20f;
-    public static float loseReward = -15f;
-
     //public static float distanceBallReward = 0.05f;
     //public static float distanceGoalReward = 0.1f;
     //public static float touchBallReward = 0.1f;
@@ -27,15 +22,15 @@ public class SoccerAgentRewards : MonoBehaviour
     public static float wallHitReward = -0.1f;
     public static float wallHitContinousReward = -0.001f;
 
-    public static float timePenalty = -0.0005f;
-    public static float ballTouchWallReward = -0.1f;
-
-    public static float touchObstacle = -0.2f;
-    public static float dashObstacle = 0.005f;
+    public static float timePenalty = -0.001f;
+    public static float ballTouchWallReward = -0.01f;
 
     public static float shootAwayReward = -0.001f;
 
     public bool hasTouchedBall;
+
+    private float _stuckTimer;
+
 
     private void Awake()
     {
@@ -56,7 +51,28 @@ public class SoccerAgentRewards : MonoBehaviour
         CheckDistanceToBall(!isNearBall);
         CheckDistanceToGoal(isNearBall);
 
+        CheckBallStuck();
+
         _agentController.AddReward(timePenalty);
+    }
+
+
+    private void CheckBallStuck()
+    {
+        float ballSpeed = _agentController.ball.GetComponent<Rigidbody>().linearVelocity.magnitude;
+
+        if (ballSpeed < 0.2f)
+        {
+            _stuckTimer += Time.fixedDeltaTime;
+
+            if (_stuckTimer >= 2f)
+            {
+                _agentController.AddReward(-0.01f);
+                _stuckTimer = 0f;
+            }
+        }
+        else
+            _stuckTimer = 0f;
     }
 
     private void CheckDistanceToBall(bool giveReward)
@@ -81,41 +97,6 @@ public class SoccerAgentRewards : MonoBehaviour
             _agentController.AddReward(progress * distanceGoalReward);
 
         _agentController.previousDistanceToGoal = currentDistance;
-    }
-
-    public void OnGoal()
-    {
-        float distanceToGoal = Vector3.Distance(transform.position, _agentController.enemyGoal.transform.position);
-
-        float distanceBonus = Mathf.Clamp(distanceToGoal, 0f, 10f);
-
-        _agentController.AddReward(goalReward + distanceBonus);
-
-        _cumulativeReward = _agentController.GetCumulativeReward();
-       _agentController.EndEpisode();
-    }
-
-    public void OnGoalReceived()
-    {
-        _agentController.AddReward(autoGoalReward);
-        _cumulativeReward = _agentController.GetCumulativeReward();
-        _agentController.EndEpisode();
-    }
-
-    public void OnWinGame()
-    {
-        _agentController.AddReward(winReward);
-        _cumulativeReward = _agentController.GetCumulativeReward();
-        _agentController.EndEpisode();
-        _currentEpisode = _agentController.CompletedEpisodes;
-    }
-
-    public void OnLoseGame()
-    {
-        _agentController.AddReward(loseReward);
-        _cumulativeReward = _agentController.GetCumulativeReward();
-        _agentController.EndEpisode();
-        _currentEpisode = _agentController.CompletedEpisodes;
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -7,7 +7,7 @@ using System;
 public class SoccerAgentController : Agent
 {
     [Header("---Components---")]
-    private SoccerAgentMovement _agentMovement;
+    public SoccerAgentMovement agentMovement;
     private SoccerAgentScore _agentScore;
     public SoccerAgentActions _agentActions;
     private SoccerAgentRewards _agentRewards;
@@ -23,14 +23,16 @@ public class SoccerAgentController : Agent
     public float previousDistanceToBall;
     public float previousDistanceToGoal;
 
+    public GameObject enemy;
+
     public override void Initialize()
     {
-        _agentMovement = GetComponent<SoccerAgentMovement>();
+        agentMovement = GetComponent<SoccerAgentMovement>();
         _agentScore = GetComponent<SoccerAgentScore>();
         _agentActions = GetComponent<SoccerAgentActions>();
         _agentRewards = GetComponent<SoccerAgentRewards>();
 
-        _agentMovement.Init();
+        agentMovement.Init();
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -46,6 +48,9 @@ public class SoccerAgentController : Agent
 
         Vector3 goalFromBall = enemyGoal.transform.position - ball.transform.position;
         sensor.AddObservation(goalFromBall);
+
+        Vector3 enemyPos = enemy.transform.position - transform.position;
+        sensor.AddObservation(enemyPos);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -57,9 +62,9 @@ public class SoccerAgentController : Agent
 
         bool wantsToSprint = sprint == 1;
 
-        _agentMovement.Sprint(wantsToSprint);
+        agentMovement.Sprint(wantsToSprint);
 
-        _agentMovement.Movement(moveX, moveY);
+        agentMovement.Movement(moveX, moveY);
 
         int shoot = actions.DiscreteActions[1];
         float forceInput = actions.ContinuousActions[2];
@@ -73,12 +78,12 @@ public class SoccerAgentController : Agent
 
     public override void OnEpisodeBegin()
     {
-        _agentScore.Restart();
+        MatchManager.Instance.ResetScore();
 
         previousDistanceToBall = Vector3.Distance(transform.position, ball.transform.position);
         previousDistanceToGoal = Vector3.Distance(ball.transform.position, enemyGoal.transform.position);
 
-        _agentMovement.ResetStamina();
+        agentMovement.ResetStamina();
         _agentRewards.hasTouchedBall = false;
     }
 }

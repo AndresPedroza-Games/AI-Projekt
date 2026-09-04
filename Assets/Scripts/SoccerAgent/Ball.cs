@@ -1,28 +1,28 @@
-using System.Collections;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
     [Header("---Agents---")]
-    [SerializeField] private SoccerAgentController _agentController;
+    [SerializeField] private SoccerAgentController _AI1;
+    [SerializeField] private SoccerAgentController _AI2;
 
     [Header("---Goals---")]
-    [SerializeField] private GameObject _AIGoal;
-    [SerializeField] private GameObject _playerGoal;
+    [SerializeField] private GameObject _AI1Goal;
+    [SerializeField] private GameObject _AI2Goal;
 
     [SerializeField] private Transform _startPoint;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == _AIGoal)
+        if (other.gameObject == _AI1Goal)
         {
-            _agentController.onGoalReceived.Invoke();
+            MatchManager.Instance.GoalAgent2();
             RestartPos();
         }
 
-        if (other.gameObject == _playerGoal)
+        if (other.gameObject == _AI2Goal)
         {
-            _agentController.onGoal.Invoke();
+            MatchManager.Instance.GoalAgent1();
             RestartPos();
         }
     }
@@ -38,7 +38,8 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             RestartPos();
-            _agentController.AddReward(SoccerAgentRewards.ballTouchWallReward);
+            _AI1.AddReward(SoccerAgentRewards.ballTouchWallReward);
+            _AI2.AddReward(SoccerAgentRewards.ballTouchWallReward);
         }
     }
 }

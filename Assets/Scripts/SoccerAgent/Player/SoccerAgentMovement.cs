@@ -19,8 +19,13 @@ public class SoccerAgentMovement : MonoBehaviour
     [Header("---Components---")]
     private SoccerAgentController _agentController;
     private SoccerAgentScore _agentScore;
+
     private float _timeOnWall;
-    [SerializeField] private Transform _startPoint;
+    private float _timeOnPlayer;
+
+    public Transform startPoint;
+
+    private Color _currentColor;
 
     private void Awake()
     {
@@ -28,6 +33,8 @@ public class SoccerAgentMovement : MonoBehaviour
         _agentController = GetComponent<SoccerAgentController>();
         _agentScore = GetComponent<SoccerAgentScore>();
         _agentRewards = GetComponent<SoccerAgentRewards>();
+
+        _currentColor = GetComponentInChildren<Renderer>().material.color;
     }
 
     public void Init()
@@ -71,9 +78,10 @@ public class SoccerAgentMovement : MonoBehaviour
 
         if (_timeOnWall >= 1)
         {
-            transform.position = _startPoint.position;
+            transform.position = startPoint.position;
             _timeOnWall = 0;
         }
+
     }
 
     private void OnCollisionExit(Collision collision)
@@ -81,7 +89,12 @@ public class SoccerAgentMovement : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             _agentRewards._cumulativeReward = _agentController.GetCumulativeReward();
-            GetComponentInChildren<Renderer>().material.color = Color.gray;
+            GetComponentInChildren<Renderer>().material.color = _currentColor;
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        transform.position = startPoint.position;
     }
 }
