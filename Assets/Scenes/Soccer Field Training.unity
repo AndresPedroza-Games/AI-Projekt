@@ -36782,6 +36782,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1429529163}
     m_Modifications:
+    - target: {fileID: 1045842441359788750, guid: 717a365d56bb90649bf8d60d4d6565b0, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4197517607384408968, guid: 717a365d56bb90649bf8d60d4d6565b0, type: 3}
       propertyPath: _ballRb
       value: 
